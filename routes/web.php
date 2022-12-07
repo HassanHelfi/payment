@@ -21,21 +21,22 @@ Route::get('/', function () {
     // Role::query()->create([
     //     'name' => 'member'
     // ]);
-    
+
     // User::factory(2)->create();
 
     // UserRole::query()->create([
     //     'user_id' => 1,
     //     'role_id' => 1
     // ]);
-    
+
     return view('welcome');
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//midelware
-Route::resource('/users', App\Http\Controllers\Admin\UserController::class)->except([
-    'show', 'create'
-]);
+
+Route::middleware(['admin'])->group(function () {
+    Route::resource('/users', App\Http\Controllers\Admin\UserController::class)->except([
+        'show', 'create'
+    ]);
+});

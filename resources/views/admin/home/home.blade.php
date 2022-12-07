@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        @if (Auth::user()->isAdmin())
             <div class="table-responsive" tabindex="1">
                 <table class="table table-borderless">
                         <tr class="align-middle">
@@ -19,7 +19,8 @@
                         </tr>
                 </table>
             </div>
-            
+        @endif
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -33,7 +34,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label> بارگزاری ضمائم : </label>
-                                    <input class="form-control" type="file" name="file">
+                                    <input class="form-control" type="file" name="file" accept="application/pdf,application/vnd.ms-excel">
                                 </div>
         
                                 <div class="form-group">

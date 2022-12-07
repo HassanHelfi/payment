@@ -39,4 +39,12 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/users', App\Http\Controllers\Admin\UserController::class)->except([
         'show', 'create'
     ]);
+    Route::post('/request_payment/store', [App\Http\Controllers\Admin\Payment\PaymentRequestController::class, 'store'])->name('request.store');
+    Route::get('/request_payment/index', [App\Http\Controllers\Admin\Payment\PaymentRequestController::class, 'index'])->name('request.index');
+
+    Route::get('/account/create/{user}', [App\Http\Controllers\Admin\Account\AccountController::class, 'create'])->name('account.create');
+    Route::post('/account/store', [App\Http\Controllers\Admin\Account\AccountController::class, 'store'])->name('account.store');
+
+    Route::get('pay/{request_id}', [App\Http\Controllers\Admin\Payment\PayController::class, 'pay'])->name('payment.pay');
+
 });

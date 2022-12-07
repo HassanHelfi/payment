@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-<?php $i = (isset($_GET['page'])) ? (($_GET['page'] - 1) * 20) + 1 : 1; ?>
+@php $i = (isset($_GET['page'])) ? (($_GET['page'] - 1) * 20) + 1 : 1; @endphp
+
 @section('content')
 <h2 class="text-center">لیست کاربران </h2>
 <div class="card">
@@ -13,7 +14,7 @@
                     <th class="align-middle text-center" scope="col" >نام</th>
                     <th class="align-middle text-center" scope="col" >ایمیل</th>
                     <th class="align-middle text-center" scope="col" > نقش ها</th>
-                    <th class="align-middle text-center" scope="col" style="width: 200px;">ویرایش</th>
+                    <th class="align-middle text-center" scope="col" style="width: 200px;">عملیات</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,10 +25,11 @@
                         <th class="align-middle text-center" scope="row">{{$user->email}}</th>
                         <th class="align-middle text-center" scope="row">
                             @foreach ($user->roles as $role)
-                             {{$role->name}} -  
+                             {{$role->name}} 
                             @endforeach
                         </th>
                         <th class="align-middle text-center" scope="row">
+                            <a class="btn btn-info" href="{{ route('account.create', ['user'=>$user->id]) }}">ایجاد حساب</a>
                             <a class="btn btn-info" href="{{ route('users.edit', ['user'=>$user->id]) }}">ویرایش</a>
                         </th>
                     </tr>

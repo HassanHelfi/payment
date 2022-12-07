@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home.home');
+        $accounts = Account::query()
+        ->where('type', 2)
+        ->whereHas('user')
+        ->with('user')
+        ->get()
+        ->pluck('user.name', 'account_number');
+
+        return view('admin.home.home', compact('accounts'));
     }
 }
